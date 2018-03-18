@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="com.mycompany.installer" version="0.0.1" 
+    xmlns="http://apache.org/cordova/ns/plugins/1.0" 
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>Installer</name>
+    <js-module name="Installer" src="www/Installer.js">
+        <clobbers target="Installer" />
+    </js-module>
+    <platform name="android">
+        <source-file src="src/android/Installer.java" target-dir="src/com/mycompany/installer" />
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="Installer">
+                <param name="android-package" value="com.mycompany.installer.Installer" />
+            </feature>
+        </config-file>
+        <config-file parent="/*" target="AndroidManifest.xml"></config-file>
+        <source-file src="src/android/xml/file_paths.xml" target-dir="res/xml/"/>
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+            <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+            <uses-permission android:name="android.permission.INSTALL_PACKAGES" />
+            <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+        </config-file>
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <provider android:authorities="${applicationId}.fileprovider" android:exported="false" android:grantUriPermissions="true" android:name="android.support.v4.content.FileProvider">
+                <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_paths" />
+            </provider>
+        </config-file>
+        <lib-file src="src/android/libs/android-support-v4.jar" />
+    </platform>
+</plugin>
