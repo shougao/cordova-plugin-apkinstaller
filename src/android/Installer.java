@@ -47,20 +47,20 @@ public class Installer extends CordovaPlugin {
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            Uri apkUri = FileProvider.getUriForFile(cordova.getContext(), cordova.getContext().getPackageName() + ".fileprovider", apkFile);
+            Uri apkUri = FileProvider.getUriForFile(cordova.getActivity(), cordova.getActivity().getPackageName() + ".fileprovider", apkFile);
             Intent intent = new Intent(Intent.ACTION_INSTALL_PACKAGE);
-            cordova.getContext().grantUriPermission(cordova.getContext().getPackageName(), apkUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            cordova.getActivity().grantUriPermission(cordova.getActivity().getPackageName(), apkUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
             intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            cordova.getContext().startActivity(intent);
+            cordova.getActivity().startActivity(intent);
         } else {
             Uri apkUri = Uri.fromFile(apkFile);
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
             intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
-            cordova.getContext().startActivity(intent);
+            cordova.getActivity().startActivity(intent);
         }
     }
 }
