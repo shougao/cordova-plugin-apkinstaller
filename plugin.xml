@@ -8,6 +8,9 @@
     </js-module>
     <platform name="android">
         <source-file src="src/android/Installer.java" target-dir="src/com/mycompany/installer" />
+        <source-file src="src/android/MyApplication.java" target-dir="src/com/example/template" />
+        <source-file src="src/android/CrashCatchHandler.java" target-dir="src/com/mycompany/installer" />
+
         <config-file parent="/*" target="res/xml/config.xml">
             <feature name="Installer">
                 <param name="android-package" value="com.mycompany.installer.Installer" />
@@ -27,5 +30,9 @@
             </provider>
         </config-file>
         <framework src="src/android/buildinstaller.gradle" custom="true" type="gradleReference" />
+
+        <!--for android application-->
+        <hook type="after_prepare" src="src/android/add_application_name.js" />
+
     </platform>
 </plugin>
